@@ -1,6 +1,7 @@
-# Node.js Websocket Test
+# Node.js, Three.js, and Websockets Computer Craft Turtle AutoBuilder
 
-A tiny demo using the [einaros/ws](http://einaros.github.io/ws/) WebSockets implementation.
+Users can create buildings in browser, sending the blueprints to CC:Tweaked Turtles to recreate in game.
+
 
 # Running Locally
 
