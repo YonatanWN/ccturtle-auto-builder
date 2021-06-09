@@ -97,6 +97,10 @@ function onMouseMove( event ) { // calculate mouse position in normalized device
 
 
 }
+function onMouseDrag(event){
+
+}
+
 function onMouseClick(event){
 	event.preventDefault();
 	raycaster.setFromCamera(mouse,camera);
@@ -112,10 +116,39 @@ function onMouseClick(event){
 				f.position.setX(intersectsgrid[0].object.position.x);
 				f.position.setZ(intersectsgrid[0].object.position.z);
 				f.position.setY(intersectsgrid[0].object.position.y + .5);
+
+				let edges = new THREE.EdgesGeometry(geometryf);
+				let line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2, morphTargets: true } ) );
+
+				line.position.set(intersectsgrid[0].object.position.x, intersectsgrid[0].object.position.y + .5,intersectsgrid[0].object.position.z);
+
+				lines.add(line);
 				scene.add(f);
-	}else if (intersectblocks.length > 0 ) {
-			console.log(intersectblocks[0].face);
-	}
+	}else if (intersectblocks.length > 0) {
+
+
+				let geometryf = new THREE.BoxGeometry();
+				let materialf = new THREE.MeshBasicMaterial( { color: 0xFFC0CC } );
+				let f = new THREE.Mesh( geometryf, materialf );
+
+
+				f.position.setX(intersectblocks[0].object.position.x + intersectblocks[0].face.normal.x);
+				f.position.setY(intersectblocks[0].object.position.y + intersectblocks[0].face.normal.y);
+				f.position.setZ(intersectblocks[0].object.position.z +  intersectblocks[0].face.normal.z);
+
+				let edges = new THREE.EdgesGeometry(geometryf);
+				let line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2, morphTargets: true } ) );
+				line.position.set(intersectblocks[0].object.position.x + intersectblocks[0].face.normal.x,intersectblocks[0].object.position.y + intersectblocks[0].face.normal.y, intersectblocks[0].object.position.z +  intersectblocks[0].face.normal.z);
+
+
+
+				lines.add(line);
+				scene.add(f);
+
+
+		}
+
+		
 }
 function onWindowResize(){
   camera.aspect = innerWidth/innerHeight;
@@ -126,3 +159,4 @@ function onWindowResize(){
 window.addEventListener('resize', onWindowResize, false);
 window.addEventListener( 'mousemove', onMouseMove, false );
 window.addEventListener('click', onMouseClick, false);
+window.addEventListener('dragstart', onMouseDrag, false);
