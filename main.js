@@ -105,7 +105,7 @@ function onMouseClick(event){
 	event.preventDefault();
 	raycaster.setFromCamera(mouse,camera);
 	let intersectsgrid = raycaster.intersectObjects(grid.children) ;
-	let intersectblocks = raycaster.intersectObjects(scene.children)
+	let intersectblocks = raycaster.intersectObjects(scene.children);
 
 	mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -148,7 +148,7 @@ function onMouseClick(event){
 
 		}
 
-		
+
 }
 function onWindowResize(){
   camera.aspect = innerWidth/innerHeight;
