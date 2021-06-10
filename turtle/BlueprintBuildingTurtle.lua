@@ -77,14 +77,30 @@ function getItemIndex(itemName)
 end
 
 function webSocketLoop()
-  local ws, err = http.websocket("wss://turtle-auto-builder.herokuapp.com:28467")
-  if err then
-		print(err)
+  local connectionURL = "ws://demos.kaazing.com/echo"
+  local ws, err = http.websocket(connectionURL)
+  if not ws then
+    return printError(err)
   end
-  if ws then
-      ws.send("Hello")
-      print("Connected to server")
+
+  ws.send("Hello world!")
+
+  while true do
+    local _, url, response, isBinary = os.pullEvent("websocket_message")
+
+    -- We need this if statement to check that we received the message from
+    -- the correct websocket. After all, you can have many websockets connected to
+    -- different URLs.
+    if url == connectionURL then
+      assert(response == "Hello world!", "Received wrong response!")
+      print(response)
+
+      -- Don't forget to close the connection!
       ws.close()
+
+      -- We've received our response and are finished.
+      break
+    end
   end
 end
 
