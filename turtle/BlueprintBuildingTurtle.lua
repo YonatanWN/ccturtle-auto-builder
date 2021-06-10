@@ -60,6 +60,9 @@ function refuel()
   end
 end
 
+
+
+
 function getItemIndex(itemName)
 
   --Credit: https://github.com/ottomated/turtle-gambit/blob/master/turtle/startup.lua
@@ -72,54 +75,71 @@ function getItemIndex(itemName)
 		end
 	end
 end
+
+function webSocketLoop()
+  local ws, err = http.websocket("wss://localhost:5000")
+  if err then
+		print(err)
+  end
+  if ws then
+      ws.send("Hello")
+      print("Connected to server")
+  end
+end
+
+
  --Main Function
  xmax = 3
  zmax = 3
  ymax = 2
 
+webSocketLoop()
 
 
- blueprint = buildArray(ymax,xmax,zmax)
 
- blueprint[1][1][1] = "minecraft:stone"
- blueprint[1][1][2] = "minecraft:stone"
- blueprint[1][1][3] = "minecraft:stone"
- blueprint[1][2][1] = "minecraft:stone"
- blueprint[1][2][2] = "minecraft:stone"
- blueprint[1][2][3] = "minecraft:stone"
- blueprint[1][3][1] = "minecraft:stone"
- blueprint[1][3][2] = "minecraft:stone"
- blueprint[1][3][3] = "minecraft:stone"
- blueprint[2][1][1] = "minecraft:stone"
- blueprint[2][1][2] = "minecraft:stone"
- blueprint[2][1][3] = "minecraft:stone"
- blueprint[2][2][1] = "minecraft:stone"
- blueprint[2][2][2] = "minecraft:stone"
- blueprint[2][2][3] = "minecraft:stone"
- blueprint[2][3][1] = "minecraft:stone"
- blueprint[2][3][2] = nill
- blueprint[2][3][3] = "minecraft:stone"
- refuel()
- for yiterator=1,ymax do
-   for xiterator=1, xmax do
-       for ziterator=1, zmax do
+function build()
+   blueprint = buildArray(ymax,xmax,zmax)
 
-         local item = turtle.getItemDetail(turtle.getSelectedSlot())
-         if( blueprint[yiterator][xiterator][ziterator] ~= nill and (item == nil or item["name"] ~= blueprint[yiterator][xiterator][ziterator])) then
-          turtle.select(getItemIndex(blueprint[yiterator][xiterator][ziterator]))
+   blueprint[1][1][1] = "minecraft:stone"
+   blueprint[1][1][2] = "minecraft:stone"
+   blueprint[1][1][3] = "minecraft:stone"
+   blueprint[1][2][1] = "minecraft:stone"
+   blueprint[1][2][2] = "minecraft:stone"
+   blueprint[1][2][3] = "minecraft:stone"
+   blueprint[1][3][1] = "minecraft:stone"
+   blueprint[1][3][2] = "minecraft:stone"
+   blueprint[1][3][3] = "minecraft:stone"
+   blueprint[2][1][1] = "minecraft:stone"
+   blueprint[2][1][2] = "minecraft:stone"
+   blueprint[2][1][3] = "minecraft:stone"
+   blueprint[2][2][1] = "minecraft:stone"
+   blueprint[2][2][2] = "minecraft:stone"
+   blueprint[2][2][3] = "minecraft:stone"
+   blueprint[2][3][1] = "minecraft:stone"
+   blueprint[2][3][2] = nill
+   blueprint[2][3][3] = "minecraft:stone"
+   refuel()
+   for yiterator=1,ymax do
+     for xiterator=1, xmax do
+         for ziterator=1, zmax do
+
+           local item = turtle.getItemDetail(turtle.getSelectedSlot())
+           if( blueprint[yiterator][xiterator][ziterator] ~= nill and (item == nil or item["name"] ~= blueprint[yiterator][xiterator][ziterator])) then
+            turtle.select(getItemIndex(blueprint[yiterator][xiterator][ziterator]))
+          end
+          if blueprint[yiterator][xiterator][ziterator] ~= nill then
+           turtle.placeDown()
+           end
+           if ziterator ~= zmax then
+            moveTurtleInY(yiterator,xiterator)
+           end
+         end
+        if xiterator ~= xmax then
+          moveTurtleInX(yiterator)
         end
-        if blueprint[yiterator][xiterator][ziterator] ~= nill then
-         turtle.placeDown()
-         end
-         if ziterator ~= zmax then
-          moveTurtleInY(yiterator,xiterator)
-         end
-       end
-      if xiterator ~= xmax then
-        moveTurtleInX(yiterator)
-      end
-   end
-   if yiterator ~= ymax then
-    turtle.up()
-   end
+     end
+     if yiterator ~= ymax then
+      turtle.up()
+     end
+  end
 end

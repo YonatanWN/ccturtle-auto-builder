@@ -8,18 +8,35 @@
 
     <title>Turtle Auto Builder</title>
     <script>
+    var attempts = 0;
+    var host = location.origin.replace(/^http/, 'ws')
+     var ws = new WebSocket(host);
+     ws.onmessage = function (event) {
 
-      var host = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(host);
-       ws.onmessage = function (event) {
+     };
+     window.onload = () => {
+    const sendButton = document.querySelector('#Sendmotherfucker');
 
-       };
+
+
+      sendButton.addEventListener('click', (event) => {
+        console.log("motherfucker pressed the button");
+        attempts+=1;
+        console.log(attempts);
+
+
+      });
+   };
+
+
     </script>
 
   </head>
   <body>
   <!-- Adapted from https://codepen.io/eroxburgh/pen/gOayPKV-->
+  <button id= "Sendmotherfucker"> Send the shit</button>
     <div class="menu" onclick="toggleMenu()">
+
   <div class="menu__button-content">
     <div class="add-sign">
       <div class="add-sign-plus">

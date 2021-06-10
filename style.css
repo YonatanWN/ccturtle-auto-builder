@@ -40,7 +40,7 @@ body{
     width 0.15s ease;
 }
 .menu__button-content:hover > .add-sign{
-  transform: rotate(20deg);
+
 }
 .add-sign {
   color: lightgrey;

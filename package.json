@@ -6,8 +6,10 @@
     "url": "https://github.com/heroku-examples/node-ws-test.git"
   },
   "dependencies": {
-    "express": "^4.4.5",
-    "ws": "0.4.x"
+    "bufferutil": "^4.0.3",
+    "express": "^4.17.1",
+    "utf-8-validate": "^5.0.5",
+    "ws": "^7.4.6"
   },
   "engines": {
     "node": "16.3.x"
