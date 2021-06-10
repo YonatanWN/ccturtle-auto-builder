@@ -21,7 +21,7 @@ wss.on("connection", function(ws) {
 
   console.log("websocket connection open")
 
-  ws.on("close", function() {
+  wss.on("close", function() {
     console.log("websocket connection close")
     clearInterval(id)
   })

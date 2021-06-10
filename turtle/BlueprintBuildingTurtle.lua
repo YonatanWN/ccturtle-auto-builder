@@ -77,13 +77,14 @@ function getItemIndex(itemName)
 end
 
 function webSocketLoop()
-  local ws, err = http.websocket("wss://localhost:5000")
+  local ws, err = http.websocket("wss://turtle-auto-builder.herokuapp.com:28467")
   if err then
 		print(err)
   end
   if ws then
       ws.send("Hello")
       print("Connected to server")
+      ws.close()
   end
 end
 
