@@ -8,24 +8,23 @@
 
     <title>Turtle Auto Builder</title>
     <script>
-    var attempts = 0;
-    var host = location.origin.replace(/^http/, 'ws')
-     var ws = new WebSocket(host);
-     ws.onmessage = function (event) {
 
-     };
+    var host = location.origin.replace(/^http/, 'ws')
+    var ws = new WebSocket(host);
+
+  
      window.onload = () => {
     const sendButton = document.querySelector('#Sendmotherfucker');
 
 
 
       sendButton.addEventListener('click', (event) => {
-        console.log("motherfucker pressed the button");
-        attempts+=1;
-        console.log(attempts);
 
+        ws.send("The motherfucker pressed the button");
 
       });
+
+
    };
 
 
