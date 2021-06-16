@@ -77,30 +77,25 @@ function getItemIndex(itemName)
 end
 
 function webSocketLoop()
-  local connectionURL = "ws://demos.kaazing.com/echo"
+  local connectionURL = "ws://localhost:5000"
   local ws, err = http.websocket(connectionURL)
-  if not ws then
+  if err then
     return printError(err)
+
+  elseif ws then
+    ws.send("CLIENTINFORMATION TURTLE")
+      while true do
+        local message = ws.recieve()
+        if message == nil then
+          break
+        end
+
+        print(message)
+
+      end
   end
-
-  ws.send("Hello world!")
-
-  while true do
-    local _, url, response, isBinary = os.pullEvent("websocket_message")
-
-    -- We need this if statement to check that we received the message from
-    -- the correct websocket. After all, you can have many websockets connected to
-    -- different URLs.
-    if url == connectionURL then
-      assert(response == "Hello world!", "Received wrong response!")
-      print(response)
-
-      -- Don't forget to close the connection!
-      ws.close()
-
-      -- We've received our response and are finished.
-      break
-    end
+  if ws then
+    ws.close()
   end
 end
 
@@ -119,7 +114,7 @@ function build()
 
    blueprint[1][1][1] = "minecraft:stone"
    blueprint[1][1][2] = "minecraft:stone"
-   blueprint[1][1][3] = "minecraft:stone"
+   blueprinta[1][1][3] = "minecraft:stone"
    blueprint[1][2][1] = "minecraft:stone"
    blueprint[1][2][2] = "minecraft:stone"
    blueprint[1][2][3] = "minecraft:stone"
